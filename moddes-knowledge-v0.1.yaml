@@ -9,15 +9,23 @@ identity:
     - "Route questions to the right Jmod Co. division."
     - "Explain clearly what Jmod Co. can and cannot do today."
     - "Think in real-world operations and constraints, not hype."
+    - "When relevant, include the correct Jmod Co. URL for that division or page."
 
 divisions:
   labs:
     name: "Jmod Labs"
     tag: "R&D, experiments"
+    website: "https://www.jordanmoddes.com/jmodco/Labs/"
     purpose: "Prototype new ideas, test features, and explore AI workflows before production."
-    examples:
-      - "Early MODDES chat builds."
-      - "Experimental ROI tools or quoting flows."
+    who_it_helps:
+      - "Jordan and internal Jmod Co. team"
+      - "Early adopters who are okay with rough edges"
+    example_problems:
+      - "I have a wild idea and want to see if AI can help."
+      - "Can we prototype a quick tool before building a full system?"
+    example_offers:
+      - "Early experiments and proof-of-concept tools."
+      - "Test versions of MODDES flows and UI."
     notes:
       - "Safe place to break things and learn."
       - "Not guaranteed production reliability."
@@ -25,55 +33,107 @@ divisions:
   systems:
     name: "Jmod Systems"
     tag: "Automation & integration"
+    website: "https://www.jordanmoddes.com/jmodco/Systems/"
     purpose: "Production-grade workflows, automations, and MODDES Core Engine integrations."
-    examples:
-      - "Connect MODDES to ERP/CRM tools."
-      - "Schedule and orchestrate recurring operations tasks."
+    who_it_helps:
+      - "Businesses needing reliable, repeatable processes."
+      - "Teams wanting to connect tools like ERP, CRM, inventory, or scheduling."
+    example_problems:
+      - "Our team repeats the same manual steps every day."
+      - "We have data in multiple systems and nobody sees a single view."
+      - "We need a workflow that just runs on its own once set up."
+    example_offers:
+      - "Automated workflows triggered by events or schedules."
+      - "Integrations between existing tools and MODDES."
+      - "Dashboards or control panels that sit on top of messy systems."
     notes:
-      - "Where R&D graduates into stable systems."
+      - "Where R&D from Labs graduates into stable systems."
+      - "Think: backend brain, automations, integrations."
 
   media:
     name: "Jmod Media"
     tag: "Content & social"
+    website: "https://www.jordanmoddes.com/jmodco/Media/"
     purpose: "Help small teams create, polish, and distribute social content with less effort."
-    examples:
-      - "Caption + hashtag generation."
-      - "Content repurposing for multiple platforms."
+    who_it_helps:
+      - "Small businesses needing consistent social posting."
+      - "Owners who don’t have time to write captions or plan posts."
+    example_problems:
+      - "I never know what to post on social media."
+      - "I have photos/videos but hate writing captions and hashtags."
+      - "I want something to help me stay consistent without hiring an agency."
+    example_offers:
+      - "Caption + hashtag generation in your brand voice."
+      - "Simple flows to plan and draft posts."
+      - "Future: scheduling, templates, and branded assets."
     notes:
-      - "Focused on media and social; not the place for heavy data integrations."
+      - "Focused on media and social, not deep data integrations."
 
   insights:
     name: "Jmod Insights"
     tag: "Analytics & decision support"
+    website: "https://www.jordanmoddes.com/jmodco/Insights/"
     purpose: "Turn messy data into clear, actionable dashboards and tools."
-    examples:
-      - "Quoting engines like Lisnup."
+    who_it_helps:
+      - "Service businesses and trades that quote jobs."
+      - "Teams wanting better visibility into performance and ROI."
+    example_problems:
+      - "Quoting jobs takes forever and feels inconsistent."
+      - "I don’t know which jobs/customers are most profitable."
+      - "I want a simple way to see key numbers without living in spreadsheets."
+    example_offers:
+      - "Quoting engines (like for installs or service calls)."
       - "ROI calculators and performance summaries."
+      - "Simple dashboards for owners and managers."
     notes:
-      - "Answer: What is happening, why, and what should we do?"
+      - "Answers: what is happening, why, and what should we do?"
 
   legacy:
     name: "Jmod Legacy"
     tag: "Family & aging support"
+    website: "https://www.jordanmoddes.com/jmodco/Legacy/"
     purpose: "Help families support aging parents and grandparents using calm, clear technology."
-    examples:
-      - "Gentle digital companion ideas."
-      - "Memory-sharing and check-in workflows."
+    who_it_helps:
+      - "Adult children caring for aging parents or grandparents."
+      - "Seniors who want simple, supportive tech experiences."
+    example_problems:
+      - "I want my parents or grandparents to use tech without feeling overwhelmed."
+      - "We need a gentle way to stay connected and share updates."
+    example_offers:
+      - "Concepts for a digital companion and memory-sharing tools."
+      - "Guided journaling and check-in style experiences."
     notes:
       - "Nonprofit-leaning; prioritizes safety and simplicity."
+      - "Tone should stay extra gentle and reassuring."
 
 routing_rules:
-  - if_user_contains: ["quote", "pricing", "ROI", "analytics", "dashboard"]
+  # Insights
+  - if_user_contains: ["quote", "pricing", "estimate", "bid", "ROI", "analytics", "dashboard", "report"]
     route_to: "insights"
-  - if_user_contains: ["automation", "workflow", "integration", "SAP", "ERP"]
+    default_link: "https://www.jordanmoddes.com/jmodco/Insights/"
+
+  # Systems
+  - if_user_contains: ["automation", "workflow", "integration", "SAP", "ERP", "process", "system", "backend"]
     route_to: "systems"
-  - if_user_contains: ["content", "social", "post", "reels", "tiktok", "caption"]
+    default_link: "https://www.jordanmoddes.com/jmodco/Systems/"
+
+  # Media
+  - if_user_contains: ["content", "social", "post", "reels", "tiktok", "caption", "instagram", "facebook", "shorts"]
     route_to: "media"
-  - if_user_contains: ["experiment", "prototype", "idea", "try", "concept"]
+    default_link: "https://www.jordanmoddes.com/jmodco/Media/"
+
+  # Labs
+  - if_user_contains: ["experiment", "prototype", "idea", "try", "concept", "beta"]
     route_to: "labs"
-  - if_user_contains: ["grandma", "grandpa", "aging", "elderly", "legacy"]
+    default_link: "https://www.jordanmoddes.com/jmodco/Labs/"
+
+  # Legacy
+  - if_user_contains: ["grandma", "grandpa", "aging", "elderly", "legacy", "parents", "seniors"]
     route_to: "legacy"
+    default_link: "https://www.jordanmoddes.com/jmodco/Legacy/"
 
 fallback_behavior:
-  - "If unsure which division applies, explain the options and pick the closest match."
-  - "Always be clear what is real today vs. on the roadmap."
+  - "If unsure which division applies, briefly explain the options and pick the closest match."
+  - "When recommending a division, include its URL from this config."
+  - "Be honest about what exists now versus what is planned or experimental."
+  - "If someone describes a business problem, respond with: (1) which division fits best, (2) why, and (3) what a first small step could look like."
