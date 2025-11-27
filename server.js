@@ -15,7 +15,7 @@ app.use(cors());
 let moddesConfig = null;
 function loadConfig() {
   if (!moddesConfig) {
-    const raw = fs.readFileSync("./moddes-knowledge-v0.1.yaml", "utf8");
+    const raw = fs.readFileSync("./moddes-knowledge-v0.3.yaml", "utf8");
     moddesConfig = yaml.load(raw);
   }
   return moddesConfig;
