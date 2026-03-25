@@ -60,4 +60,35 @@ Answer using this knowledge.
 
 // Render will set PORT
 const PORT = process.env.PORT || 3000;
+app.post("/debbie", async (req, res) => {
+  const type = req.body.type || "trivia"; // trivia | challenge | word
+
+  const prompts = {
+    trivia: `Generate 7 trivia questions for a sharp woman born in the mid-1950s. 
+Focus on the 1960s–1990s: pop culture, history, music, TV, news. 
+Light sprinkling of 2000s–2020s. 
+Return ONLY valid JSON array, no markdown:
+[{"q":"...","opts":["A","B","C","D"],"a":0,"decade":"1970s"}]`,
+
+    challenge: `Generate 1 daily brain challenge: a short logic puzzle, pattern, or sequence question. 
+Return ONLY valid JSON: {"prompt":"...","answer":"...","hint":"..."}`,
+  };
+
+  const systemPrompt = prompts[type] || prompts.trivia;
+
+  try {
+    const completion = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [{ role: "user", content: systemPrompt }],
+      temperature: 0.8,
+    });
+
+    const raw = completion.choices?.[0]?.message?.content || "[]";
+    const parsed = JSON.parse(raw);
+    res.json({ data: parsed });
+  } catch (err) {
+    console.error("Debbie endpoint error:", err);
+    res.status(500).json({ error: "Failed to generate content" });
+  }
+});
 app.listen(PORT, () => console.log(`MODDES backend running on port ${PORT}`));
