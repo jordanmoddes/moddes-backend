@@ -119,7 +119,7 @@ Keep it under 120 words. Be honest. Be a little uncomfortable if the truth calls
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-5",
         max_tokens: 300,
         system: systemPrompt,
         messages: [{ role: "user", content: message }],
