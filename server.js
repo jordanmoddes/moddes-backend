@@ -127,6 +127,7 @@ Keep it under 120 words. Be honest. Be a little uncomfortable if the truth calls
     });
 
     const data = await response.json();
+    console.error("Anthropic response:", JSON.stringify(data));
     const reply = data.content?.find(b => b.type === "text")?.text || "";
     res.json({ reply });
   } catch (err) {
